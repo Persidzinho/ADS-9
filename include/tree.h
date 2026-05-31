@@ -9,7 +9,6 @@ class PMTree {
     explicit PMTree(const std::vector<char>& symbols);
     ~PMTree();
 
-    // Доступ к корню для дружественных функций
     const struct Node* getRoot() const { return root; }
     int totalPerms() const { return total; }
 
@@ -17,7 +16,7 @@ class PMTree {
     struct Node {
         char value;
         std::vector<Node*> children;
-        int count;  // количество перестановок в поддереве
+        int count;
         explicit Node(char c) : value(c), count(0) {}
     };
 
@@ -29,7 +28,6 @@ class PMTree {
     void destroySubtree(Node* node);
 };
 
-// Функции для работы с деревом
 std::vector<std::vector<char>> getAllPerms(const PMTree& tree);
 std::vector<char> getPerm1(const PMTree& tree, int num);
 std::vector<char> getPerm2(const PMTree& tree, int num);
