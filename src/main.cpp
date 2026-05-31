@@ -37,7 +37,8 @@ static int randomPermNumber(int total, std::mt19937& gen) {
 static void savePlot(const std::vector<int>& sizes,
                      const std::vector<double>& time1,
                      const std::vector<double>& time2) {
-    (void)std::system("mkdir -p result");
+    int ret = std::system("mkdir -p result");
+    (void)ret;
 
     std::ofstream csv("result/times.csv");
     csv << "n,getPerm1_sec,getPerm2_sec\n";
@@ -60,7 +61,7 @@ static void savePlot(const std::vector<int>& sizes,
           "with linespoints title 'getPerm2'\n";
     gp.close();
 
-    int ret = std::system("gnuplot result/plot.gnu");
+    ret = std::system("gnuplot result/plot.gnu");
     if (ret != 0) {
         std::cerr << "Warning: gnuplot not executed (maybe not installed)\n";
     } else {
