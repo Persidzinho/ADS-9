@@ -37,7 +37,7 @@ static int randomPermNumber(int total, std::mt19937& gen) {
 static void savePlot(const std::vector<int>& sizes,
                      const std::vector<double>& time1,
                      const std::vector<double>& time2) {
-    std::system("mkdir -p result");
+    (void)std::system("mkdir -p result");
 
     std::ofstream csv("result/times.csv");
     csv << "n,getPerm1_sec,getPerm2_sec\n";
@@ -119,7 +119,7 @@ int main() {
     savePlot(sizes, timePerm1, timePerm2);
 
     std::cout << "=== Проверка работы функций на примере {'1','2','3'} ===\n";
-    std::vector<char> in = {'1','2','3'};
+    std::vector<char> in = {'1', '2', '3'};
     PMTree demoTree(in);
     auto all = getAllPerms(demoTree);
     std::cout << "Все перестановки (getAllPerms):\n";
