@@ -4,9 +4,6 @@
 #include <algorithm>
 #include <vector>
 
-// --------------------------------------------------------------
-// Вспомогательные функции для построения дерева
-// --------------------------------------------------------------
 PMTree::PMTree(const std::vector<char>& symbols) : root(nullptr), total(0) {
     buildTree(symbols);
 }
@@ -22,7 +19,6 @@ void PMTree::buildTree(const std::vector<char>& symbols) {
         total = 1;
         return;
     }
-    // Сортируем и убираем возможные дубликаты (хотя по условию их нет)
     std::vector<char> sorted = symbols;
     std::sort(sorted.begin(), sorted.end());
     auto last = std::unique(sorted.begin(), sorted.end());
@@ -33,7 +29,6 @@ void PMTree::buildTree(const std::vector<char>& symbols) {
     for (char ch : sorted) {
         Node* child = new Node(ch);
         root->children.push_back(child);
-        // Оставшиеся символы – все, кроме ch
         std::vector<char> remaining;
         for (char c : sorted) {
             if (c != ch) remaining.push_back(c);
@@ -71,9 +66,6 @@ void PMTree::destroySubtree(Node* node) {
     delete node;
 }
 
-// --------------------------------------------------------------
-// getAllPerms – полный обход всех перестановок
-// --------------------------------------------------------------
 static void dfsCollect(const PMTree::Node* node,
                        std::vector<char>& current,
                        std::vector<std::vector<char>>& output) {
@@ -96,9 +88,6 @@ std::vector<std::vector<char>> getAllPerms(const PMTree& tree) {
     return result;
 }
 
-// --------------------------------------------------------------
-// getPerm1 – последовательный обход до нужного номера
-// --------------------------------------------------------------
 static bool dfsFind(const PMTree::Node* node,
                     std::vector<char>& path,
                     int& counter,
@@ -133,9 +122,6 @@ std::vector<char> getPerm1(const PMTree& tree, int num) {
     return result;
 }
 
-// --------------------------------------------------------------
-// getPerm2 – навигация по дереву без полного обхода
-// --------------------------------------------------------------
 std::vector<char> getPerm2(const PMTree& tree, int num) {
     std::vector<char> result;
     if (num < 1 || num > tree.totalPerms()) return result;
