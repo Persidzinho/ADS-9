@@ -1,8 +1,8 @@
 // Copyright 2022 NNTU-CS
-#include "tree.h"
-
 #include <algorithm>
 #include <vector>
+
+#include "tree.h"
 
 PMTree::PMTree(const std::vector<char>& symbols) : root(nullptr), total(0) {
     buildTree(symbols);
