@@ -1,6 +1,4 @@
 // Copyright 2022 NNTU-CS
-#include "tree.h"
-
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -9,6 +7,8 @@
 #include <iostream>
 #include <random>
 #include <vector>
+
+#include "tree.h"
 
 static std::vector<char> makeSymbolSet(int n) {
     std::vector<char> sym;
@@ -54,8 +54,10 @@ static void savePlot(const std::vector<int>& sizes,
     gp << "set ylabel 'время (секунды)'\n";
     gp << "set title 'Сравнение getPerm1 и getPerm2'\n";
     gp << "set grid\n";
-    gp << "plot 'result/times.csv' using 1:2 with linespoints title 'getPerm1', \\\n";
-    gp << "     'result/times.csv' using 1:3 with linespoints title 'getPerm2'\n";
+    gp << "plot 'result/times.csv' using 1:2 "
+          "with linespoints title 'getPerm1', \\\n";
+    gp << "     'result/times.csv' using 1:3 "
+          "with linespoints title 'getPerm2'\n";
     gp.close();
 
     int ret = std::system("gnuplot result/plot.gnu");
@@ -75,14 +77,17 @@ int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::cout << "Запуск вычислительного эксперимента (n от 1 до " << maxN << ")\n";
-    std::cout << "Для каждого n выполняется " << repeats << " случайных запросов\n\n";
+    std::cout << "Запуск вычислительного эксперимента (n от 1 до "
+              << maxN << ")\n";
+    std::cout << "Для каждого n выполняется " << repeats
+              << " случайных запросов\n\n";
 
     for (int n = 1; n <= maxN; ++n) {
         std::vector<char> symbols = makeSymbolSet(n);
         PMTree tree(symbols);
         int total = tree.totalPerms();
-        std::cout << "n = " << n << ", всего перестановок: " << total << std::endl;
+        std::cout << "n = " << n << ", всего перестановок: "
+                  << total << std::endl;
 
         std::vector<int> permNumbers;
         for (int r = 0; r < repeats; ++r) {
